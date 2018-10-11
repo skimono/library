@@ -10,7 +10,7 @@ Gracz będzie przemierzal rozbity statek kosmiczny podzielony na sześcienne cz�
 
 ### Walka
 
-Walka rozgrywana jest na postawie dwóch statystyk - punktów ataku i życia. Po napotkaniu innej postaci gra najpierw wyswietla wizerunek napotkanego moba i pyta czy chcesz z nim walczyc. W wypadku zgody rozgrywa ją automatycznie umieszczając opis rezultatu pojedynku. W zależności od tego czy punkty ataku moba sa wyzsze lub nizsze od gracza i w jakim stopniu graczowi może zostać odebrana różna ilośc życia. W nagrode po pojedynku gracz może dostac złoto, jakiś przedmiot i odpowiednią ilośc punktów doświadczenia, które w odpowiedniej ilości zwiększaja punkty ataku.
+Walka rozgrywana jest na postawie dwóch statystyk - punktów ataku i życia. Po napotkaniu innej postaci gra najpierw wyswietla wizerunek napotkanego moba i pyta czy chcesz z nim walczyc. W wypadku zgody rozgrywa ją automatycznie umieszczając opis rezultatu pojedynku. W zależności od tego czy punkty ataku moba sa wyzsze lub nizsze od gracza i w jakim stopniu, graczowi może zostać odebrana różna ilośc punktów życia. W nagrode po pojedynku gracz może dostac złoto, jakiś przedmiot i odpowiednią ilośc punktów doświadczenia, które w odpowiedniej ilości zwiększaja punkty ataku.
 
 ### Ekwipunek
 
