@@ -6,7 +6,7 @@
 
 ### Rozgrywka
 
-Gracz będzie przemierzal rozbity statek kosmiczny podzielony na sześcienne części, których każda strona ma przypisaną teksture (_img[placement]_ w [Wireframe mock-up](/docs/expedition_wireframe.png) i jest wyswietlana na _"Character / encounter view"_. Taka jednostka bedzie stanowić jedną zamkniętą "ture" gry w obrębie której gracz może spotkać przeciwnika lub handlarza w postaci NPC albo innego gracza z ktorym może wejść w tą sama interakcje co z mobami. 
+Gracz będzie przemierzal rozbity statek kosmiczny podzielony na sześcienne części, których każda strona ma przypisaną teksture (_img[placement]_ w [Wireframe mock-up](/docs/expedition_wireframe.png)) i jest wyswietlana na _"Character / encounter view"_. Taka jednostka bedzie stanowić jedną zamkniętą "ture" gry w obrębie której gracz może spotkać przeciwnika lub handlarza w postaci NPC albo innego gracza z ktorym może wejść w tą sama interakcje co z mobami. 
 
 ### Walka
 
