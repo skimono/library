@@ -6,16 +6,17 @@
 
 ### Rozgrywka
 
-Gra zaczyna się w statku kosmicznym swojej postaci, który robi za menu. W tym miejscu gracz będzie miał do wyboru wyruszenie na ekspedycję lub polecieć na stację kosmiczną, gdzie będzie można dostać zadania, korzystać ze sklepu lub domu aukcyjnego oraz będzie mógł zainicjować pojedynek z innym graczem.
-W eksploracji gracz będzie przemierzał rozbity statek kosmiczny podzielony na sześcienne części. Poruszając się swobodnie po takim obszarze gracz będzie wykonywać różne zadania i walczyć z potworami.
-Na stacji kosmicznej będzie można rozmawiać z NPC by dostać od nich zadania do wykonania. Będzie tam również dostępny dom aukcyjny, gdzie gracz będzie mógł sprzedać swoje przedmioty innym graczom jak i od nich kupować.
-Dostępna opcja pojedynków będzie rozgrywać zautomatyzowaną walkę między dwoma graczami i w zależności od wyników serii pojedynków będzie się umieszczonym w rankingu globalnym.
+Postac gracza rozpoczyna w pełniącym funkcje menu chałupniczym obozie ustawionym przy rozbitym statku kosmicznym. Do wyboru będzie miał odwiedzenie domu aukcyjnego z przedmiotami, podjęcie zadań od NPC i ostatecznie wyruszenie na ekspedycje. Gracz będzie przemierzal statek podzielony na sześcienne części, których każda strona ma przypisaną teksture (img[placement] w Wireframe mock-up) i jest wyswietlana na "Character / encounter view". Taka jednostka bedzie stanowić jedną zamkniętą "ture" gry w obrębie której gracz może spotkać przeciwnika lub handlarza w postaci NPC albo innego gracza z ktorym może wejść w tą sama interakcje co z mobami.
 
 
 ### Walka
 
-Walka rozgrywana jest na postawie dwóch statystyk - punktów ataku i życia. W zależności od sposobu napotkania przeciwnika gra będzie prosić o wykonanie różnych czynności. W wypadku, gdy dojdzie do walki będzie ona rozgrywana jedną akcją na turę za pomocą podstawowych ataków i dostępnych przedmiotów w ekwipunku. W zależności od tego czy punkty ataku przeciwnika są wyższe lub niższe od gracza i w jakim stopniu, graczowi może zostać odebrana różna ilość punktów życia. W nagrodę po pojedynku gracz może dostać złoto, jakiś przedmiot i odpowiednią ilość punktów doświadczenia, które w odpowiedniej ilości zwiększają poziom postaci.
+Walka rozgrywana jest na postawie dwóch statystyk - punktów ataku i życia. W zależności od sposobu napotkania przeciwnika gra będzie prosić o wykonanie różnych czynności. W wypadku gdy dojdzie do walki będzie ona rozgrywana jedną akcją na turę za pomocą podstawowych ataków i dostępnych przedmiotów w ekwipunku. W zależności od tego czy punkty ataku przeciwnika są wyższe lub niższe od gracza i w jakim stopniu, graczowi może zostać odebrana różna ilość punktów życia. W nagrodę po pojedynku gracz może dostać złoto, jakiś przedmiot i odpowiednią ilość punktów doświadczenia, które w pewnej ilości zwiększają poziom postaci. Wynik serii pojedynków zostanie umieszczony w rankingu globalnym.
 
+
+### Ekwipunek
+
+W grze istnieje zarządzany przez gre system ekwipunku z dwoma slotami - na zbroje oraz na broń. Przy kupieniu lub znalezieniu któregoś z tych przedmiotów gra automatycznie wyposaża w niego gracza zwiększając o odpowiednią sume punkty ataku bądź zdrowa.
 
 ### Losowe zdarzenia
 
