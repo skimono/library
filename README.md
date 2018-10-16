@@ -6,7 +6,7 @@
 
 ### Rozgrywka
 
-Postac gracza rozpoczyna w pełniącym funkcje menu chałupniczym obozie ustawionym przy rozbitym statku kosmicznym. Do wyboru będzie miał odwiedzenie domu aukcyjnego z przedmiotami, podjęcie zadań od NPC i ostatecznie wyruszenie na ekspedycje. Gracz będzie przemierzal statek podzielony na sześcienne części, których każda strona ma przypisaną teksture (img[placement] w Wireframe mock-up) i jest wyswietlana na "Character / encounter view". Taka jednostka bedzie stanowić jedną zamkniętą "ture" gry w obrębie której gracz może spotkać przeciwnika lub handlarza w postaci NPC albo innego gracza z ktorym może wejść w tą sama interakcje co z mobami.
+Postac gracza rozpoczyna w pełniącym funkcje menu chałupniczym obozie ustawionym przy rozbitym statku kosmicznym. Do wyboru będzie miał odwiedzenie domu aukcyjnego z przedmiotami, podjęcie zadań od NPC i ostatecznie wyruszenie na ekspedycje. Gracz będzie przemierzal statek podzielony na sześcienne części, których każda strona ma przypisaną teksture (img[placement] w [Wireframe mock-up](/docs/expedition_wireframe.png)) i jest wyswietlana na "Character / encounter view". Taka jednostka bedzie stanowić jedną zamkniętą "ture" gry w obrębie której gracz może spotkać przeciwnika lub handlarza w postaci NPC albo innego gracza z ktorym może wejść w tą sama interakcje co z mobami.
 
 
 ### Walka
