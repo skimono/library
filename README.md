@@ -6,7 +6,7 @@
 
 ### Rozgrywka
 
-Gra zaczyna się w statku kosmicznym swojej postaci, który robi za menu. W tym miejscu gracz będzie miał do wyboru wyruszenie na ekspedycję i polecieć na stację kosmiczną, gdzie będzie można dostać zadania, korzystać ze sklepu lub domu aukcyjnego oraz będzie mógł zainicjować pojedynek z innym graczem.
+Gra zaczyna się w statku kosmicznym swojej postaci, który robi za menu. W tym miejscu gracz będzie miał do wyboru wyruszenie na ekspedycję lub polecieć na stację kosmiczną, gdzie będzie można dostać zadania, korzystać ze sklepu lub domu aukcyjnego oraz będzie mógł zainicjować pojedynek z innym graczem.
 W eksploracji gracz będzie przemierzał rozbity statek kosmiczny podzielony na sześcienne części. Poruszając się swobodnie po takim obszarze gracz będzie wykonywać różne zadania i walczyć z potworami.
 Na stacji kosmicznej będzie można rozmawiać z NPC by dostać od nich zadania do wykonania. Będzie tam również dostępny dom aukcyjny, gdzie gracz będzie mógł sprzedać swoje przedmioty innym graczom jak i od nich kupować.
 Dostępna opcja pojedynków będzie rozgrywać zautomatyzowaną walkę między dwoma graczami i w zależności od wyników serii pojedynków będzie się umieszczonym w rankingu globalnym.
