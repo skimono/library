@@ -17,7 +17,11 @@ const uiConfig = {
 class Login extends Component {
     render() {
         return (
-            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+            <div>
+            <h1>Expedition</h1>
+            <p>Please Log-in:</p>
+            {<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>}
+            </div>
         )
     }
 }
