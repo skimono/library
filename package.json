@@ -1,0 +1,25 @@
+{
+  "name": "expedition",
+  "version": "1.0.0",
+  "description": "## School project - MMO Dungeon Crawler inspired by a world created in a famous 1980 roleplaying module",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emanfred/expedition.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emanfred/expedition/issues"
+  },
+  "homepage": "https://github.com/emanfred/expedition#readme",
+  "dependencies": {
+    "firebase": "^5.5.8"
+  }
+}
