@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import firebase from 'firebase'
 
-class Add extends Component {
+class AddBook extends Component {
 
     constructor() {
         super();
@@ -19,15 +19,14 @@ class Add extends Component {
 
     addBook = e => {
         e.preventDefault();
-        const db = firebase.firestore();
-        db.settings({
-          timestampsInSnapshots: true
-        });
-        const bookRef = db.collection('Books').add({
+
+        firebase.firestore().collection('Books').add({
           title: this.state.title,
           author: this.state.author,
           addedBy: firebase.auth().currentUser.uid  
-        }); 
+        })
+        .then(() => console.log('Document added')); 
+
         this.setState({
           title: '',
           author: '',  
@@ -61,4 +60,4 @@ class Add extends Component {
     }
 
 }
-export default Add;
+export default AddBook;

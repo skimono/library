@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import Login from './login'
-import Add from './Adding'
+import AddBook from './AddingBooks'
+import Listing from './Listing'
 import firebase from 'firebase'
 
 var config = {
-
-
+//firebase setup
 }
 firebase.initializeApp(config)
 
@@ -21,7 +21,8 @@ class App extends Component {
      (user) => this.setState({isLoggedIn: !!user})
     )
 
-//
+    const settings = {timestampsInSnapshots: true}
+    firebase.firestore().settings(settings)
   }
  
   componentWillUnmount() {
@@ -40,7 +41,9 @@ class App extends Component {
           <h1>Expedition</h1>
           <p>Welcome {firebase.auth().currentUser.displayName}! You are now loged-in!</p>
           <button onClick={() => firebase.auth().signOut()}>Logout</button>
-          <Add/>
+          <AddBook/>
+          <br/>
+          <Listing/>
         </div>
       )
     }
