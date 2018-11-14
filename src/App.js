@@ -43,7 +43,7 @@ class App extends Component {
     } else {
       return (
         <div className='app'>
-          <h1>Expedition</h1>
+          <h1>Expedition test app</h1>
           <p>Welcome {firebase.auth().currentUser.displayName}! You are now logged-in!</p>
           <button onClick={() => firebase.auth().signOut()}>Logout</button>
           <AddBook/>
