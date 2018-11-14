@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import Login from './login'
-import AddBook from './AddingBooks'
-import Listing from './Listing'
+import Login from './components/Login'
+import AddBook from './components/AddingBooks'
+import Listing from './components/Listing'
 import firebase from 'firebase'
 
 var config = {
