@@ -1,43 +1,41 @@
-import React, {Component} from 'react'
-import firebase from 'firebase'
-import Book from './Book'
+import React, { Component } from 'react';
 
 class Books extends Component {
-    
-    state = {
-        elements: [],
-        isFaved: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      fav: false
     };
+  }
+  onClickSetFav = () => {
+    let favState = this.state.fav;
+    favState = !favState;
+    this.setState({ fav: favState });
+    this.props.onClickSetFavHandler();
+  };
 
-    list(){
-        firebase.firestore()
-            .collection('Authors')
-            .onSnapshot(querySnapshot => {
-                const elements = []
-                querySnapshot.forEach(doc =>
-                    elements.push({id: doc.id, ...doc.data()})
-                )
-                this.setState({elements})
-            })
-    }
+  render() {
+    const { books } = this.props;
 
-    setFav = id => {
-        console.log(id)
-    }
+    return (
+      <React.Fragment>
+        {books.map(book => {
+          return (
+            <div>
+              <p>{book.id}</p> <p>{book.title}</p>
+            </div>
+          );
+        })}
 
-    render() {
-        const {elements} = this.state
-        this.list()
-
-        return(
-            <ul>
-                {elements.map(e =>
-                     <li key={e.id}>
-                        {<Book book={e} onClickSetFavHandler = {this.setFav.bind(this, e.id)} /> }
-                    </li>
-                )}
-            </ul>
-        )
-    }
+        <button onClick={this.onClickSetFav}>
+          {this.state.fav ? (
+            <i className="fas fa-heart" />
+          ) : (
+            <i className="far fa-heart" />
+          )}
+        </button>
+      </React.Fragment>
+    );
+  }
 }
 export default Books;
