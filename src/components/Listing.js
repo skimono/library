@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import Authors from './Authors';
+import Books from './Books';
 
 class Listing extends Component {
   state = {
-    authors: [],
+    books: [],
     isFaved: false
   };
 
   list() {
     firebase
       .firestore()
-      .collection('Authors')
+      .collection('Books')
       .onSnapshot(querySnapshot => {
-        const authors = [];
-        querySnapshot.forEach(doc =>
-          authors.push({ id: doc.id, ...doc.data() })
-        );
-        this.setState({ authors });
+        const books = [];
+        querySnapshot.forEach(doc => books.push({ id: doc.id, ...doc.data() }));
+        this.setState({ books });
       });
   }
 
@@ -26,13 +24,13 @@ class Listing extends Component {
   };
 
   render() {
-    const { authors } = this.state;
+    const { books } = this.state;
     this.list();
 
     return (
       <React.Fragment>
         <div>
-          <Authors key={authors.id} authors={authors} />
+          <Books key={books.id} books={books} />
         </div>
       </React.Fragment>
     );

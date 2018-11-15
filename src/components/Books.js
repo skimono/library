@@ -22,7 +22,7 @@ class Books extends Component {
         {books.map(book => {
           return (
             <div>
-              <p>{book.id}</p> <p>{book.title}</p>
+              <p>{book.author}</p> <p>{book.title}</p>
             </div>
           );
         })}
