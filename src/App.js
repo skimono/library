@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from './components/Login';
-import AddBook from './components/AddingBooks';
+import AddingBook from './components/AddingBooks';
 import Listing from './components/Listing';
 import firebase from 'firebase';
 
@@ -47,7 +47,7 @@ class App extends Component {
             logged-in!
           </p>
           <button onClick={() => firebase.auth().signOut()}>Logout</button>
-          <AddBook />
+          <AddingBook />
           <br />
           <Listing />
         </div>
