@@ -1,41 +1,40 @@
-import React, { Component } from 'react';
-import firebase from 'firebase';
-import Authors from './Authors';
+import React, {Component} from 'react'
+import firebase from 'firebase'
 
 class Listing extends Component {
-  state = {
-    authors: [],
-    isFaved: false
-  };
+    
+    state = {
+        books: []
+    }
 
-  list() {
-    firebase
-      .firestore()
-      .collection('Authors')
-      .onSnapshot(querySnapshot => {
-        const authors = [];
-        querySnapshot.forEach(doc =>
-          authors.push({ id: doc.id, ...doc.data() })
-        );
-        this.setState({ authors });
-      });
-  }
+    list() {
+        firebase.firestore()
+            .collection('Books')
+            .onSnapshot(querySnapshot => {
+                const books = []
+                querySnapshot.forEach(doc =>
+                    books.push({id: doc.id, ...doc.data()})
+                )
+                this.setState({books: books})
+            })
+    }
 
-  setFav = id => {
-    console.log(id);
-  };
+    render() {
+        const {books} = this.state
+        this.list()
 
-  render() {
-    const { authors } = this.state;
-    this.list();
-
-    return (
-      <React.Fragment>
-        <div>
-          <Authors key={authors.id} authors={authors} />
-        </div>
-      </React.Fragment>
-    );
-  }
+        return(
+            <div>
+                <p>List of known books:</p>
+                <ul>
+                    {books.map(b =>
+                        <li key={b.id}>
+                            "{b.title}" &mdash; <i>{b.author}</i>
+                        </li>
+                    )}
+                </ul>
+            </div>
+        )
+    }
 }
 export default Listing;

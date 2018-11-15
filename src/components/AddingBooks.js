@@ -6,9 +6,22 @@ class AddBook extends Component {
     constructor() {
         super();
         this.state = {
-         title: '',
+         title: [],
          author: '',
+         image: null,
+         filename: '',
+         url: ''
         };
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange = e => {
+        if(e.target.files[0]) {
+            const image = e.target.files[0];
+            this.setState(() => ({image}))
+            this.setState({ filename: image.name});
+            this.setState({ url: ('/image/' + image.name) });
+        }
     }
 
     updateInput = e => {
@@ -19,11 +32,25 @@ class AddBook extends Component {
 
     addBook = e => {
         e.preventDefault();
+        const { filename } = this.state;
+
+        var storageRef = firebase.storage().ref('/images/' + filename);
+        var uploadImage = storageRef.put(this.state.image);
+
+        uploadImage.on('state_changed', function(snapshot){
+
+        }, function(error) {
+
+        }, function() {
+            console.log('Image added')
+        });
+
 
         firebase.firestore().collection('Books').add({
           title: this.state.title,
           author: this.state.author,
-          addedBy: firebase.auth().currentUser.uid  
+          addedBy: firebase.auth().currentUser.uid,
+          coverUrl: this.state.url
         })
         .then(() => console.log('Document added')); 
 
@@ -52,6 +79,9 @@ class AddBook extends Component {
                 placeholder="Author"
                 onChange={this.updateInput}
                 value={this.state.author}
+                />
+                <input type="file"
+                onChange={this.handleChange}
                 />
                 <button type="submit">Submit</button>
             </form>
