@@ -26,7 +26,7 @@ class Listing extends Component {
 
         return(
             <div>
-                <p>List of known books:</p>
+              <p>List of known books:</p>
                 <ul>
                     {books.map(b =>
                         <Books key={b.id} book={b} />
