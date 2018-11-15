@@ -1,5 +1,8 @@
-import React, {Component} from 'react'
-import firebase from 'firebase'
+import React, {Component} from 'react';
+import firebase from 'firebase';
+import { BasicButton, BasicInput } from '../styles.js';
+import styled from 'styled-components';
+
 
 class AddBook extends Component {
 
@@ -66,14 +69,14 @@ class AddBook extends Component {
         <div>
             <p>Add additional books:</p>
             <form onSubmit={this.addBook}>
-                <input
+                <BasicInput
                 type="text"
                 name="title"
                 placeholder="Title"
                 onChange={this.updateInput}
                 value={this.state.title}
                 />
-                <input
+                <BasicInput
                 type="text"
                 name="author"
                 placeholder="Author"
@@ -83,7 +86,7 @@ class AddBook extends Component {
                 <input type="file"
                 onChange={this.handleChange}
                 />
-                <button type="submit">Submit</button>
+                <BasicButton type="submit">Submit</BasicButton>
             </form>
         </div>
         );
