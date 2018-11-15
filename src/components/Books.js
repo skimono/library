@@ -7,33 +7,32 @@ class Books extends Component {
       fav: false
     };
   }
+  
   onClickSetFav = () => {
     let favState = this.state.fav;
     favState = !favState;
     this.setState({ fav: favState });
-    this.props.onClickSetFavHandler();
+    console.log(this.props.book.id)
   };
 
   render() {
-    const { books } = this.props;
+    const { book } = this.props;
 
     return (
       <React.Fragment>
-        {books.map(book => {
-          return (
-            <div>
-              <p>{book.id}</p> <p>{book.title}</p>
-            </div>
-          );
-        })}
+      <ul>
+        <li>{book.id}</li>
+        <li>{book.title}</li>
+        <li>{book.author}</li>
 
         <button onClick={this.onClickSetFav}>
           {this.state.fav ? (
-            <i className="fas fa-heart" />
+            <div><i className="fas fa-heart" /></div>
           ) : (
             <i className="far fa-heart" />
           )}
         </button>
+        </ul>
       </React.Fragment>
     );
   }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Books from './Books'
 import firebase from 'firebase'
 
 class Listing extends Component {
@@ -28,9 +29,7 @@ class Listing extends Component {
                 <p>List of known books:</p>
                 <ul>
                     {books.map(b =>
-                        <li key={b.id}>
-                            "{b.title}" &mdash; <i>{b.author}</i>
-                        </li>
+                        <Books key={b.id} book={b} />
                     )}
                 </ul>
             </div>
