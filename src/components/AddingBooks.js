@@ -8,6 +8,8 @@ class AddBook extends Component {
         this.state = {
          title: [],
          author: '',
+         pages: '',
+         genre: '',
          image: null,
          filename: '',
          url: ''
@@ -49,6 +51,8 @@ class AddBook extends Component {
         firebase.firestore().collection('Books').add({
           title: this.state.title,
           author: this.state.author,
+          pages: this.state.pages,
+		  genre: this.state.genre,
           addedBy: firebase.auth().currentUser.uid,
           coverUrl: this.state.url
         })
@@ -56,7 +60,9 @@ class AddBook extends Component {
 
         this.setState({
           title: '',
-          author: '',  
+          author: '',
+          pages: '',
+          genre: ''
         });
       };
 
@@ -79,6 +85,20 @@ class AddBook extends Component {
                 placeholder="Author"
                 onChange={this.updateInput}
                 value={this.state.author}
+                />
+                <input
+                type="text"
+                name="pages"
+                placeholder="Number of pages"
+                onChange={this.updateInput}
+                value={this.state.pages}
+                />
+                <input
+                type="text"
+                name="genre"
+                placeholder="Genre"
+                onChange={this.updateInput}
+                value={this.state.genre}
                 />
                 <input type="file"
                 onChange={this.handleChange}
