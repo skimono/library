@@ -66,14 +66,8 @@ class AddBook extends Component {
                     coverUrl: this.state.url,
                     favedBy: []
                 }).then(docRef => console.log('Book added', docRef.id)).then(() => {
-                    this.setState({
-                        title: [],
-                        author: '',
-                        image: null,
-                        filename: '',
-                        url: ''
-                    })
-                })
+                    window.location.reload();
+                });
             })
         } else {
             db.doc(flag).collection('Books').add({
@@ -81,15 +75,8 @@ class AddBook extends Component {
                 coverUrl: this.state.url,
                 favedBy: []
             }).then(docRef => console.log('Book added', docRef.id)).then(() => {
-                this.setState({
-                    title: [],
-                    author: '',
-                    image: null,
-                    filename: '',
-                    url: ''
-                })
-                flag = null;
-            })
+                window.location.reload();
+            });
         }
 
 

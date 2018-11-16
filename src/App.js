@@ -31,7 +31,7 @@ class App extends Component {
 
     var db = firebase.firestore()
     db.collection('Authors')
-      .onSnapshot(querySnapshot => {
+      .get().then(querySnapshot => {
         const authors = []
         querySnapshot.forEach(doc =>
           authors.push({ id: doc.id, ...doc.data() })
