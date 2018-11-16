@@ -262,9 +262,11 @@ class AddBook extends Component {
             value={this.state.publicationDate}
           />
           <input type="file" onChange={this.handleChange} />
+          <div>
           <BasicButton type="submit" disabled={!this.state.formValid}>
             Submit
           </BasicButton>
+          </div>
         </form>
         <FormErrors formErrors={this.state.formErrors} />
       </div>
