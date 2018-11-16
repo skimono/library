@@ -10,32 +10,34 @@ class AddBook extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            authorid: ' ',
+            bookid: ' ',
             authors: [],
             books: [],
             title: '',
             author: '',
             genre: '',
-            paperback: '',
+            pages: '',
             publisher: '',
             language: '',
             image: null,
             filename: '',
-            url: '',
             formErrors: {
                 title: '',
                 author: '',
                 genre: '',
-                paperback: '',
+                pages: '',
                 publisher: '',
                 language: ''
             },
             titleValid: false,
             authorValid: false,
             genreValid: false,
-            paperbackValid: false,
+            pagesValid: false,
             publisherValid: false,
             languageValid: false
         };
+        this.addToDb = this.addToDb.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -43,8 +45,19 @@ class AddBook extends Component {
         if (e.target.files[0]) {
             const image = e.target.files[0];
             this.setState(() => ({ image }))
-            this.setState({ filename: image.name });
-            this.setState({ url: '/images/' + image.name });
+
+            var currentdate = new Date();
+            var currenttime = currentdate.getDate() + "-"
+            + (currentdate.getMonth() + 1) + "-"
+            + currentdate.getFullYear() + "_"
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds() + "_"
+            + firebase.auth().currentUser.uid;
+            var filenametemp = this.state.filename.split('.')
+            var roz = filenametemp.pop()
+            this.setState({ filename: (currenttime + roz) })
+            console.log(this.state.filename)
         }
     }
 
@@ -67,7 +80,7 @@ class AddBook extends Component {
 
         var db = firebase.firestore()
         db.collection('Authors')
-            .get().then(querySnapshot => {
+            .onSnapshot(querySnapshot => {
                 const authors = []
                 querySnapshot.forEach(doc =>
                     authors.push({ id: doc.id, ...doc.data() })
@@ -92,8 +105,24 @@ class AddBook extends Component {
         console.log('Got Books')
     }
 
-    addToDb = e => {
-        e.preventDefault();
+    addBook(db, docAdr, url) {
+        console.log('Author added', docAdr);
+        db.doc(docAdr).collection('Books').add({
+            title: this.state.title,
+            genre: this.state.genre,
+            pages: this.state.pages,
+            publisher: this.state.publisher,
+            language: this.state.language,
+            coverUrl: url,
+            favedBy: []
+        }).then(docRef => console.log('Book added', docRef.id)).then(() => {
+            // window.location.reload();
+        });
+    }
+
+    addImage(url) {
+        var bookRef = firebase.firestore().collection("Authors").doc(this.state.authorid).collection('Books').doc(this.state.bookid);
+
         const { filename } = this.state;
 
         var storageRef = firebase.storage().ref('/images/' + filename);
@@ -102,50 +131,56 @@ class AddBook extends Component {
         uploadImage.on('state_changed', function (snapshot) {
         }, function (error) {
         }, function () {
-            var downloadURL = uploadImage.snapshot.ref.getDownloadURL()
-                .then(function (downloadURL) {
-                    console.log('File available at', downloadURL);
+            uploadImage.snapshot.ref.getDownloadURL()
+                .then((downloadURL) => {
+                    url = downloadURL
+                    bookRef.update({
+                        coverUrl: url
+                    }).then(() => console.log('Cover Added', url))
+                })
+        });
+    }
+
+    addToDb = e => {
+        e.preventDefault();
+
+        var url = null
+        const { filename } = this.state;
+        var storageRef = firebase.storage().ref('/images/' + filename);
+        var uploadImage = storageRef.put(this.state.image);
+
+        uploadImage.on('state_changed', function (snapshot) {
+        }, function (error) {
+        }, function () {
+            uploadImage.snapshot.ref.getDownloadURL()
+                .then((downloadURL) => {
+                    url = downloadURL
+                    console.log('Cover Added', url)
                 })
         });
 
         let author = this.state.author
         var flag = null
         this.state.authors.map(function (e) {
-            if (e.name == author) { flag = e.id }
+            if (e.name == author) {
+                flag = e.id
+                console.log('author id from flag', flag)
+            }
         })
-        var db = firebase.firestore().collection('Authors')
-        if (flag == null) {
-            db.add({
-                name: this.state.author,
-                addedBy: firebase.auth().currentUser.uid
-            }).then(docRef => {
-                console.log('Author added', docRef.id);
-                db.doc(docRef.id).collection('Books').add({
-                    title: this.state.title,
-                    genre: this.state.genre,
-                    paperback: this.state.paperback,
-                    publisher: this.state.publisher,
-                    language: this.state.language,
-                    coverUrl: this.state.url,
-                    favedBy: []
-                }).then(docRef => console.log('Book added', docRef.id)).then(() => {
-                    window.location.reload();
-                });
-            })
-        } else {
-            db.doc(flag).collection('Books').add({
-                title: this.state.title,
-                genre: this.state.genre,
-                paperback: this.state.paperback,
-                publisher: this.state.publisher,
-                language: this.state.language,
-                coverUrl: this.state.url,
-                favedBy: []
-            }).then(docRef => console.log('Book added', docRef.id)).then(() => {
-                window.location.reload();
-            });
-        }
 
+        setTimeout(() => {
+            var db = firebase.firestore().collection('Authors')
+            if (flag == null) {
+                db.add({
+                    name: this.state.author,
+                    addedBy: firebase.auth().currentUser.uid
+                }).then(docRef => {
+                    this.addBook(db, docRef, url);
+                })
+            } else {
+                this.addBook(db, flag, url);
+            }
+        }, 3000);
 
     };
 
@@ -154,7 +189,7 @@ class AddBook extends Component {
         let titleValid = this.state.titleValid;
         let authorValid = this.state.authorValid;
         let genreValid = this.state.genreValid;
-        let paperbackValid = this.state.paperbackValid;
+        let pagesValid = this.state.pagesValid;
         let publisherValid = this.state.publisherValid;
         let languageValid = this.state.languageValid;
 
@@ -173,9 +208,9 @@ class AddBook extends Component {
                     ? ''
                     : ' is too short or contains number';
                 break;
-            case 'paperback':
-                paperbackValid = value.match('^[0-9]+$') && !value.match('^[0]+');
-                fieldValidationErrors.Paperback = paperbackValid
+            case 'pages':
+                pagesValid = value.match('^[0-9]+$') && !value.match('^[0]+');
+                fieldValidationErrors.Pages = pagesValid
                     ? ''
                     : ' must contain number';
                 break;
@@ -196,7 +231,7 @@ class AddBook extends Component {
                 titleValid,
                 authorValid,
                 genreValid,
-                paperbackValid,
+                pagesValid,
                 publisherValid,
                 languageValid
             },
@@ -210,7 +245,7 @@ class AddBook extends Component {
                 this.state.titleValid &&
                 this.state.authorValid &&
                 this.state.genreValid &&
-                this.state.paperbackValid &&
+                this.state.pagesValid &&
                 this.state.publisherValid &&
                 this.state.languageValid
         });
@@ -247,10 +282,10 @@ class AddBook extends Component {
                             />
                             <BasicInput
                                 type="text"
-                                name="paperback"
-                                placeholder="Paperback"
+                                name="pages"
+                                placeholder="Pages"
                                 onChange={this.updateInput}
-                                value={this.state.paperback}
+                                value={this.state.pages}
                             />
                             <BasicInput
                                 type="text"
@@ -275,6 +310,7 @@ class AddBook extends Component {
                         </form>
                         <FormErrors formErrors={this.state.formErrors} />
                     </div>
+                    <br />
                     <br />
                 </SubHeader>
                 <Body>

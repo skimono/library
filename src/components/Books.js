@@ -42,20 +42,24 @@ class Books extends Component {
       <React.Fragment>
         <tr>
           <td>
-            <img src={books.coverUrl} alt={books.title + ' cover'} height='400' width='300' /> 
+            <img src={books.coverUrl} alt={books.title + ' cover'} height='300' width='225' />
           </td>
-            <td>{books.title}</td>
-            <td>{books.author}</td>
-            <td><button onClick={this.onClickSetFav}>
-              {this.state.fav ? (
-                <i className="fas fa-heart" />
-              ) : (
-                  <i className="far fa-heart" />
-                )}
-            </button></td>
+          <td>{books.title}</td>
+          <td>{books.author}</td>
+          <td>{books.genre}</td>
+          <td>{books.pages}</td>
+          <td>{books.publisher}</td>
+          <td>{books.language}</td>
+          <td><button onClick={this.onClickSetFav}>
+            {this.state.fav ? (
+              <i className="fas fa-heart" />
+            ) : (
+              <i className="far fa-heart" />
+            )}
+          </button></td>
         </tr>
       </React.Fragment>
-        );
-      }
-    }
-    export default Books;
+    );
+  }
+}
+export default Books;

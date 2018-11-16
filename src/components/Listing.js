@@ -9,12 +9,16 @@ class Listing extends Component {
         return (
             <div>
                 <p>List of known books:</p>
-                <table>
+                <table align="center">
                 <tbody>
                     <tr>
                         <th>Cover</th>
                         <th>Title</th>
                         <th>Author</th>
+                        <th>Genre</th>
+                        <th>Pages</th>
+                        <th>Publisher</th>
+                        <th>Language</th>
                         <th>Favorite</th>
                     </tr>
                     {books.map(b =>
