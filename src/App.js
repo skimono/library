@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Login from './components/Login';
 import AddingBook from './components/AddingBooks';
 import firebase from 'firebase';
+import { Wrapper, Header, Title, Greeting, BasicButton } from './styles.js';
 
 var config = {
   //firebase setup
@@ -17,44 +18,12 @@ firebase.initializeApp(config);
 class App extends Component {
   state = {
     isLoggedIn: false,
-    authors: [],
-    books: []
   };
 
   componentDidMount() {
     this.unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged(user => this.setState({ isLoggedIn: !!user }));
-
-    const settings = { timestampsInSnapshots: true };
-    firebase.firestore().settings(settings);
-
-    var db = firebase.firestore()
-    db.collection('Authors')
-      .get().then(querySnapshot => {
-        const authors = []
-        querySnapshot.forEach(doc =>
-          authors.push({ id: doc.id, ...doc.data() })
-        )
-        this.setState({ authors: authors })
-        const books = []
-        this.state.authors.forEach(author =>
-          db.collection('Authors').doc(author.id).collection('Books')
-            .get().then(querySnapshot => {
-
-              querySnapshot.forEach(doc =>
-                books.push({
-                  id: doc.id,
-                  authorid: author.id,
-                  author: author.name,
-                  ...doc.data()
-                })
-              )
-              this.setState({ books: books })
-            })
-        )
-      })
-    console.log('Got Books')
   }
 
   componentWillUnmount() {
@@ -68,16 +37,16 @@ class App extends Component {
       return <Login />;
     } else {
       return (
-        <div className="app">
-          <h1>Expedition</h1>
-          <p>
-            Welcome {firebase.auth().currentUser.displayName}! You are now
-            logged-in!
-          </p>
-          <button onClick={() => firebase.auth().signOut()}>Logout</button>
-          
-          <AddingBook authors={this.state.authors} books={this.state.books} />
-        </div>
+        <Wrapper>
+          <Header>
+            <Title>Library test app for Expedition project</Title>
+            <Greeting>
+              Welcome {firebase.auth().currentUser.displayName}! You are now logged-in!
+            </Greeting>
+            <BasicButton onClick={() => firebase.auth().signOut()}>Logout</BasicButton>
+          </Header>
+            <AddingBook />
+        </Wrapper>
       );
     }
   }

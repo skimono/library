@@ -19,18 +19,18 @@ class Books extends Component {
 
   onClickSetFav = () => {
     let favState = this.state.fav;
-    
+
     var booksRef = firebase.firestore().collection("Authors").doc(this.props.books.authorid).collection('Books').doc(this.props.books.id);
     this.state.fav ? (
-    booksRef.update({
-    	favedBy: firebase.firestore.FieldValue.arrayRemove(firebase.auth().currentUser.uid)
-    	}).then(() => console.log('Book unfaved'))
-    ):(
-    booksRef.update({
-    	favedBy: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.uid)
-    	}).then(() => console.log('Book faved'))
-    )
-    
+      booksRef.update({
+        favedBy: firebase.firestore.FieldValue.arrayRemove(firebase.auth().currentUser.uid)
+      }).then(() => console.log('Book unfaved'))
+    ) : (
+        booksRef.update({
+          favedBy: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.uid)
+        }).then(() => console.log('Book faved'))
+      )
+
     favState = !favState;
     this.setState({ fav: favState });
   };
@@ -40,18 +40,22 @@ class Books extends Component {
 
     return (
       <React.Fragment>
-        <li>
-	      {books.title} &mdash; {books.author}{' '}
-	      <button onClick={this.onClickSetFav}>
-	        {this.state.fav ? (
-	          <i className="fas fa-heart" />
-	       	  ) : (
-	          <i className="far fa-heart" />
-	        )}
-	      </button>
-	    </li>
+        <tr>
+          <td>
+            <img src={books.coverUrl} alt={books.title + ' cover'} height='400' width='300' /> 
+          </td>
+            <td>{books.title}</td>
+            <td>{books.author}</td>
+            <td><button onClick={this.onClickSetFav}>
+              {this.state.fav ? (
+                <i className="fas fa-heart" />
+              ) : (
+                  <i className="far fa-heart" />
+                )}
+            </button></td>
+        </tr>
       </React.Fragment>
-    );
-  }
-}
-export default Books;
+        );
+      }
+    }
+    export default Books;
