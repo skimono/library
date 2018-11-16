@@ -40,16 +40,22 @@ class Books extends Component {
 
     return (
       <React.Fragment>
-        <li>
-	      {book.title} &mdash; {book.name}{' '}
-	      <button onClick={this.onClickSetFav}>
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Favorite</th>
+          </tr>
+            <td>{book.title}</td>
+	          <td>{book.author}</td>
+	      <td><button onClick={this.onClickSetFav}>
 	        {this.state.fav ? (
 	          <i className="fas fa-heart" />
 	       	  ) : (
 	          <i className="far fa-heart" />
 	        )}
-	      </button>
-	    </li>
+	      </button></td>
+	    </table>
       </React.Fragment>
     );
   }

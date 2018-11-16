@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import { FormErrors } from './FormErrors';
+import { BasicButton, BasicInput } from '../styles.js';
+import styled from 'styled-components';
 
 class AddBook extends Component {
   constructor() {
@@ -210,49 +212,49 @@ class AddBook extends Component {
       <div>
         <p>Add additional books:</p>
         <form onSubmit={this.addBook}>
-          <input
+          <BasicInput
             type="text"
             name="title"
             placeholder="Title"
             onChange={this.updateInputTable}
             value={this.state.title}
           />
-          <input
+          <BasicInput
             type="text"
             name="author"
             placeholder="Author"
             onChange={this.updateInput}
             value={this.state.author}
           />
-          <input
+          <BasicInput
             type="text"
             name="genre"
             placeholder="Genre"
             onChange={this.updateInput}
             value={this.state.genre}
           />
-          <input
+          <BasicInput
             type="text"
             name="paperback"
             placeholder="Paperback"
             onChange={this.updateInput}
             value={this.state.paperback}
           />
-          <input
+          <BasicInput
             type="text"
             name="publisher"
             placeholder="Publisher"
             onChange={this.updateInput}
             value={this.state.publisher}
           />
-          <input
+          <BasicInput
             type="text"
             name="language"
             placeholder="Language"
             onChange={this.updateInput}
             value={this.state.language}
           />
-          <input
+          <BasicInput
             type="text"
             name="publicationDate"
             placeholder="Publication date (dd-mm-yyyy)"
@@ -260,9 +262,9 @@ class AddBook extends Component {
             value={this.state.publicationDate}
           />
           <input type="file" onChange={this.handleChange} />
-          <button type="submit" disabled={!this.state.formValid}>
+          <BasicButton type="submit" disabled={!this.state.formValid}>
             Submit
-          </button>
+          </BasicButton>
         </form>
         <FormErrors formErrors={this.state.formErrors} />
       </div>

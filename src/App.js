@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Login from './components/Login';
 import AddingBook from './components/AddingBooks';
 import Listing from './components/Listing';
+import styled from 'styled-components';
 import firebase from 'firebase';
+import { Wrapper, Header, SubHeader, Body, Title, Greeting, BasicButton } from './styles.js';
 
 var config = {
   //firebase setup
@@ -40,17 +42,21 @@ class App extends Component {
       return <Login />;
     } else {
       return (
-        <div className="app">
-          <h1>Expedition</h1>
-          <p>
-            Welcome {firebase.auth().currentUser.displayName}! You are now
-            logged-in!
-          </p>
-          <button onClick={() => firebase.auth().signOut()}>Logout</button>
-          <AddingBook />
-          <br />
-          <Listing />
-        </div>
+        <Wrapper>
+          <Header>
+            <Title>Library test app for Expedition project</Title>
+            <Greeting>
+              Welcome {firebase.auth().currentUser.displayName}! You are now logged-in!
+            </Greeting>
+            <BasicButton onClick={() => firebase.auth().signOut()}>Logout</BasicButton>
+          </Header>
+          <SubHeader>
+            <AddingBook />
+          </SubHeader>
+          <Body>
+            <Listing />
+          </Body>
+        </Wrapper>
       );
     }
   }

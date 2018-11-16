@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import styled from 'styled-components';
 import firebase from 'firebase';
+import { Wrapper, Header, Title, Greeting} from '../styles.js';
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -17,16 +19,18 @@ const uiConfig = {
 class Login extends Component {
   render() {
     return (
-      <div>
-        <h1>Expedition</h1>
-        <p>Please Log-in:</p>
-        {
-          <StyledFirebaseAuth
-            uiConfig={uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
-        }
-      </div>
+      <Wrapper>
+          <Header>
+            <Title>Library test app for Expedition project</Title>
+            <Greeting>Please Log-in:</Greeting>
+            {
+              <StyledFirebaseAuth
+                uiConfig={uiConfig}
+                firebaseAuth={firebase.auth()}
+              />
+            }
+          </Header>
+      </Wrapper>
     );
   }
 }
