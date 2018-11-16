@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
+import Listing from './Listing';
 
 class AddBook extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             title: [],
             author: '',
@@ -36,7 +37,7 @@ class AddBook extends Component {
         });
     }
 
-    addBook = e => {
+    addToDb = e => {
         e.preventDefault();
         const { filename } = this.state;
 
@@ -44,19 +45,38 @@ class AddBook extends Component {
         var uploadImage = storageRef.put(this.state.image);
 
         uploadImage.on('state_changed', function (snapshot) {
-
         }, function (error) {
-
         }, function () {
             console.log('Image added')
         });
 
-        firebase.firestore().collection('Authors').add({
-            name: this.state.author,
-            addedBy: firebase.auth().currentUser.uid,
-        }).then(docRef => {
-            console.log('Author added', docRef.id);
-            firebase.firestore().collection('Authors').doc(docRef.id).collection('Books').add({
+        let author = this.state.author
+        var flag = null
+        this.props.authors.map(function (e) {
+            if (e.name == author) { flag = e.id }
+        })
+        var db = firebase.firestore().collection('Authors')
+        if (flag == null) {
+            db.add({
+                name: this.state.author,
+            }).then(docRef => {
+                console.log('Author added', docRef.id);
+                db.doc(docRef.id).collection('Books').add({
+                    title: this.state.title,
+                    coverUrl: this.state.url,
+                    favedBy: []
+                }).then(docRef => console.log('Book added', docRef.id)).then(() => {
+                    this.setState({
+                        title: [],
+                        author: '',
+                        image: null,
+                        filename: '',
+                        url: ''
+                    })
+                })
+            })
+        } else {
+            db.doc(flag).collection('Books').add({
                 title: this.state.title,
                 coverUrl: this.state.url,
                 favedBy: []
@@ -68,36 +88,44 @@ class AddBook extends Component {
                     filename: '',
                     url: ''
                 })
+                flag = null;
             })
-        })
+        }
+
+
     };
 
     render() {
 
         return (
-            <div>
-                <p>Add additional books:</p>
-                <form onSubmit={this.addBook}>
-                    <input
-                        type="text"
-                        name="title"
-                        placeholder="Title"
-                        onChange={this.updateInputTable}
-                        value={this.state.title}
-                    />
-                    <input
-                        type="text"
-                        name="author"
-                        placeholder="Author"
-                        onChange={this.updateInput}
-                        value={this.state.author}
-                    />
-                    <input type="file"
-                        onChange={this.handleChange}
-                    />
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+            <React.Fragment>
+                <div>
+                    <p>Add additional books:</p>
+                    <form onSubmit={this.addToDb}>
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Title"
+                            onChange={this.updateInputTable}
+                            value={this.state.title}
+                        />
+                        <input
+                            type="text"
+                            name="author"
+                            placeholder="Author"
+                            onChange={this.updateInput}
+                            value={this.state.author}
+                        />
+                        <input type="file"
+                            onChange={this.handleChange}
+                        />
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <p>{this.props.books.author}</p>
+                <br />
+                <Listing books={this.props.books} />
+            </React.Fragment>
         );
     }
 

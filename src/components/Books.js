@@ -10,17 +10,17 @@ class Books extends Component {
   }
 
   componentDidMount() {
-    // let favState = this.state.fav;
-    // if (this.props.book.favedBy.includes(firebase.auth().currentUser.uid)) {
-    //   favState = !favState;
-    //   this.setState({ fav: favState })
-    // }
+    let favState = this.state.fav;
+    if (this.props.books.favedBy.includes(firebase.auth().currentUser.uid)) {
+      favState = !favState;
+      this.setState({ fav: favState })
+    }
   }
 
   onClickSetFav = () => {
     let favState = this.state.fav;
     
-    var booksRef = firebase.firestore().collection("Authors").doc(this.props.book.id).collection('Books').doc(this.props.book.id);
+    var booksRef = firebase.firestore().collection("Authors").doc(this.props.books.authorid).collection('Books').doc(this.props.books.id);
     this.state.fav ? (
     booksRef.update({
     	favedBy: firebase.firestore.FieldValue.arrayRemove(firebase.auth().currentUser.uid)
@@ -36,12 +36,12 @@ class Books extends Component {
   };
 
   render() {
-    const { book } = this.props;
+    const { books } = this.props;
 
     return (
       <React.Fragment>
         <li>
-	      {book.title} &mdash; {book.name}{' '}
+	      {books.title} &mdash; {books.author}{' '}
 	      <button onClick={this.onClickSetFav}>
 	        {this.state.fav ? (
 	          <i className="fas fa-heart" />

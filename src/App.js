@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Login from './components/Login';
 import AddingBook from './components/AddingBooks';
-import Listing from './components/Listing';
 import firebase from 'firebase';
 
 var config = {
@@ -17,7 +16,9 @@ firebase.initializeApp(config);
 
 class App extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    authors: [],
+    books: []
   };
 
   componentDidMount() {
@@ -27,6 +28,33 @@ class App extends Component {
 
     const settings = { timestampsInSnapshots: true };
     firebase.firestore().settings(settings);
+
+    var db = firebase.firestore()
+    db.collection('Authors')
+      .onSnapshot(querySnapshot => {
+        const authors = []
+        querySnapshot.forEach(doc =>
+          authors.push({ id: doc.id, ...doc.data() })
+        )
+        this.setState({ authors: authors })
+        const books = []
+        this.state.authors.forEach(author =>
+          db.collection('Authors').doc(author.id).collection('Books')
+            .get().then(querySnapshot => {
+
+              querySnapshot.forEach(doc =>
+                books.push({
+                  id: doc.id,
+                  authorid: author.id,
+                  author: author.name,
+                  ...doc.data()
+                })
+              )
+              this.setState({ books: books })
+            })
+        )
+      })
+    console.log('Got Books')
   }
 
   componentWillUnmount() {
@@ -47,9 +75,8 @@ class App extends Component {
             logged-in!
           </p>
           <button onClick={() => firebase.auth().signOut()}>Logout</button>
-          <AddingBook />
-          <br />
-          <Listing />
+          
+          <AddingBook authors={this.state.authors} books={this.state.books} />
         </div>
       );
     }
