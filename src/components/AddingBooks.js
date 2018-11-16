@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import { FormErrors } from './FormErrors';
 
 class AddBook extends Component {
   constructor() {
@@ -11,11 +12,26 @@ class AddBook extends Component {
       paperback: '',
       publisher: '',
       language: '',
-      readingLevel: '',
       publicationDate: '',
       image: null,
       filename: '',
-      url: ''
+      url: '',
+      formErrors: {
+        title: '',
+        author: '',
+        genre: '',
+        paperback: '',
+        publisher: '',
+        language: '',
+        publicationDate: ''
+      },
+      titleValid: false,
+      authorValid: false,
+      genreValid: false,
+      paperbackValid: false,
+      publisherValid: false,
+      languageValid: false,
+      publicationDateValid: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -30,15 +46,29 @@ class AddBook extends Component {
   };
 
   updateInput = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState(
+      {
+        [name]: value
+      },
+      () => {
+        this.validateField(name, value);
+      }
+    );
   };
 
   updateInputTable = e => {
-    this.setState({
-      [e.target.name]: [e.target.value]
-    });
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState(
+      {
+        [name]: [value]
+      },
+      () => {
+        this.validateField(name, value);
+      }
+    );
   };
 
   addBook = e => {
@@ -77,7 +107,6 @@ class AddBook extends Component {
             paperback: this.state.paperback,
             publisher: this.state.publisher,
             language: this.state.language,
-            readingLevel: this.state.readingLevel,
             publicationDate: this.state.publicationDate,
             coverUrl: this.state.url,
             favedBy: []
@@ -91,7 +120,6 @@ class AddBook extends Component {
               paperback: '',
               publisher: '',
               language: '',
-              readingLevel: '',
               publicationDate: '',
               image: null,
               filename: '',
@@ -100,6 +128,82 @@ class AddBook extends Component {
           });
       });
   };
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let titleValid = this.state.titleValid;
+    let authorValid = this.state.authorValid;
+    let genreValid = this.state.genreValid;
+    let paperbackValid = this.state.paperbackValid;
+    let publisherValid = this.state.publisherValid;
+    let languageValid = this.state.languageValid;
+    let publicationDateValid = this.state.publicationDateValid;
+
+    switch (fieldName) {
+      case 'title':
+        titleValid = value.length >= 1;
+        fieldValidationErrors.Title = titleValid ? '' : ' is missing';
+        break;
+      case 'author':
+        authorValid = value.length >= 1;
+        fieldValidationErrors.Author = authorValid ? '' : ' is missing';
+        break;
+      case 'genre':
+        genreValid = value.length >= 3 && !value.match('[0-9]+'); //s-f
+        fieldValidationErrors.Genre = genreValid
+          ? ''
+          : ' is too short or contains number';
+        break;
+      case 'paperback':
+        paperbackValid = value.match('^[0-9]+$') && !value.match('^[0]+');
+        fieldValidationErrors.Paperback = paperbackValid
+          ? ''
+          : ' must contain number';
+        break;
+      case 'publisher':
+        publisherValid = value.length >= 3;
+        fieldValidationErrors.Publisher = publisherValid ? '' : ' is too short';
+        break;
+      case 'language':
+        languageValid = value.length >= 2; //PL
+        fieldValidationErrors.Language = languageValid ? '' : ' is too short';
+        break;
+      case 'publicationDate':
+        publicationDateValid = true; // do poprawy
+        fieldValidationErrors.Publication_Date = publicationDateValid
+          ? ''
+          : ' is in incorrect format';
+        break;
+      default:
+        break;
+    }
+    this.setState(
+      {
+        formErrors: fieldValidationErrors,
+        titleValid,
+        authorValid,
+        genreValid,
+        paperbackValid,
+        publisherValid,
+        languageValid,
+        publicationDateValid
+      },
+      this.validateForm
+    );
+  }
+
+  validateForm() {
+    this.setState({
+      formValid:
+        this.state.titleValid &&
+        this.state.authorValid &&
+        this.state.genreValid &&
+        this.state.paperbackValid &&
+        this.state.publisherValid &&
+        this.state.languageValid &&
+        this.state.publicationDateValid
+    });
+  }
 
   render() {
     return (
@@ -150,21 +254,17 @@ class AddBook extends Component {
           />
           <input
             type="text"
-            name="readingLevel"
-            placeholder="Reading Level"
-            onChange={this.updateInput}
-            value={this.state.readingLevel}
-          />
-          <input
-            type="text"
             name="publicationDate"
-            placeholder="Publication date"
+            placeholder="Publication date (dd-mm-yyyy)"
             onChange={this.updateInput}
             value={this.state.publicationDate}
           />
           <input type="file" onChange={this.handleChange} />
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={!this.state.formValid}>
+            Submit
+          </button>
         </form>
+        <FormErrors formErrors={this.state.formErrors} />
       </div>
     );
   }
