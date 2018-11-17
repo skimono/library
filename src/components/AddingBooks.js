@@ -116,7 +116,7 @@ class AddBook extends Component {
             coverUrl: url,
             favedBy: []
         }).then(docRef => console.log('Book added', docRef.id)).then(() => {
-            // window.location.reload();
+            window.location.reload();
         });
     }
 
