@@ -5,10 +5,13 @@
   "dependencies": {
     "@ionic/app-scripts": "^3.1.6",
     "firebase": "^5.5.8",
+    "lsbridge": "^0.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-firebaseui": "^3.1.2",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "rxjs": "^6.3.3",
+    "styled-components": "^4.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
