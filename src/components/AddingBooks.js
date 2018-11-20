@@ -175,7 +175,7 @@ class AddBook extends Component {
                     name: this.state.author,
                     addedBy: firebase.auth().currentUser.uid
                 }).then(docRef => {
-                    this.addBook(db, docRef, url);
+                    this.addBook(db, docRef.id, url);
                 })
             } else {
                 this.addBook(db, flag, url);
