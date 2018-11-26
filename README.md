@@ -1,18 +1,23 @@
-# Welcome to the Complete Intro to React v4 and Intermediate React v1!
+# expedition
 
-[See the course website here][v4].
+## School project - MMO Dungeon Crawler inspired by a world created in a famous 1980 roleplaying module
 
-This course was written for and recorded by [Frontend Masters][fem] as the [Complete Intro to React v4][course] and [Intermediate React][course-intermediate] courses. The code here is licensed under the Apache 2.0 license and the [course notes][v4] are licensed under the Creative Commons Attribution-NonCommercial 4.0 International license.
+**Gra bedzie dungeon crawlerem w stylu "Eye of Beholder" albo "Bard's Tale 3".** 
 
-## Debugging
+### Rozgrywka
 
-Parcel is an ever evolving project that's just getting better. If you run into problems with it not respecting changes (particularly to your `.babelrc` or `.env` files) then delete the `dist/` and the `.cache/` directories. You can do this in bash by running from the root directoy of your project `rm -rf dist/ .cache/` or just by deleting those directories in your editor. This will force Parcel to start over and not cache anything.
+Postac gracza rozpoczyna w pełniącym funkcje menu chałupniczym obozie ustawionym przy rozbitym statku kosmicznym. Do wyboru będzie miał odwiedzenie domu aukcyjnego z przedmiotami, podjęcie zadań od NPC i ostatecznie wyruszenie na ekspedycje. Gracz będzie przemierzal statek podzielony na sześcienne części, których każda strona ma przypisaną teksture (img[placement] w [Wireframe mock-up](/docs/expedition_wireframe.png)) i jest wyswietlana na "Character / encounter view". Taka jednostka bedzie stanowić jedną zamkniętą "ture" gry w obrębie której gracz może spotkać przeciwnika lub handlarza w postaci NPC albo innego gracza z ktorym może wejść w tą sama interakcje co z mobami.
 
-See [this issue](https://github.com/btholt/complete-intro-to-react-v4/issues/3#issuecomment-425124265) for more specific instructions.
 
-If you run into anything else, open an issue and we'll try to clarify or help.
+### Walka
 
-[v4]: https://bit.ly/react-v4
-[fem]: https://frontendmasters.com/
-[course]: https://frontendmasters.com/courses/complete-react-v4/
-[course-intermediate]: https://frontendmasters.com/courses/intermediate-react/
+Walka rozgrywana jest na postawie dwóch statystyk - punktów ataku i życia. W zależności od sposobu napotkania przeciwnika gra będzie prosić o wykonanie różnych czynności. W wypadku gdy dojdzie do walki będzie ona rozgrywana jedną akcją na turę za pomocą podstawowych ataków i dostępnych przedmiotów w ekwipunku. W zależności od tego czy punkty ataku przeciwnika są wyższe lub niższe od gracza i w jakim stopniu, graczowi może zostać odebrana różna ilość punktów życia. W nagrodę po pojedynku gracz może dostać złoto, jakiś przedmiot i odpowiednią ilość punktów doświadczenia, które w pewnej ilości zwiększają poziom postaci. Wynik serii pojedynków zostanie umieszczony w rankingu globalnym.
+
+
+### Ekwipunek
+
+W grze istnieje zarządzany przez gre system ekwipunku z dwoma slotami - na zbroje oraz na broń. Przy kupieniu lub znalezieniu któregoś z tych przedmiotów gra automatycznie wyposaża w niego gracza zwiększając o odpowiednią sume punkty ataku bądź zdrowa.
+
+### Losowe zdarzenia
+
+Eksplorując statek gracz może napotkać nie tylko inne postacie lub gracza, ale również specjalny event związany z decyzją, której efektem jest odpowiednia nagroda lub kara.

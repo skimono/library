@@ -1,95 +1,57 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Router, Link } from "@reach/router";
-import pf from "petfinder-client";
-import Results from "./Results";
-import Details from "./Details";
-import SearchParams from "./SearchParams";
-import { Provider } from "./SearchContext";
+import React, { Component } from 'react';
+import Login from './components/Login';
+import AddingBook from './components/AddingBooks';
+import firebase from 'firebase';
+import { Wrapper, Header, Title, Greeting, BasicButton } from './styles.js';
+import ReactDOM from 'react-dom';
+import './index.css';
 
-const petfinder = pf({
-  key: process.env.API_KEY,
-  secret: process.env.API_SECRET
-});
+var config = {
+  //firebase setup
+  apiKey: 'AIzaSyDb6MxVPz02Dzu6TBU6uRMZk6lSfsEuH8E',
+  authDomain: 'solwit-pjatk-arc-2018-gr3.firebaseapp.com',
+  databaseURL: 'https://solwit-pjatk-arc-2018-gr3.firebaseio.com/',
+  projectId: 'solwit-pjatk-arc-2018-gr3',
+  storageBucket: 'solwit-pjatk-arc-2018-gr3.appspot.com',
+  messagingSenderId: '314895835823'
+};
+firebase.initializeApp(config);
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+class App extends Component {
+  state = {
+    isLoggedIn: false,
+  };
 
-    this.state = {
-      location: "Seattle, WA",
-      animal: "",
-      breed: "",
-      breeds: [],
-      handleAnimalChange: this.handleAnimalChange,
-      handleBreedChange: this.handleBreedChange,
-      handleLocationChange: this.handleLocationChange,
-      getBreeds: this.getBreeds
-    };
+  componentDidMount() {
+    this.unregisterAuthObserver = firebase
+      .auth()
+      .onAuthStateChanged(user => this.setState({ isLoggedIn: !!user }));
   }
-  handleLocationChange = event => {
-    this.setState({
-      location: event.target.value
-    });
-  };
-  handleAnimalChange = event => {
-    this.setState(
-      {
-        animal: event.target.value
-      },
-      this.getBreeds
-    );
-  };
-  handleBreedChange = event => {
-    this.setState({
-      breed: event.target.value
-    });
-  };
-  getBreeds() {
-    if (this.state.animal) {
-      petfinder.breed
-        .list({ animal: this.state.animal })
-        .then(data => {
-          if (
-            data.petfinder &&
-            data.petfinder.breeds &&
-            Array.isArray(data.petfinder.breeds.breed)
-          ) {
-            this.setState({
-              breeds: data.petfinder.breeds.breed
-            });
-          } else {
-            this.setState({ breeds: [] });
-          }
-        })
-        .catch(console.error);
-    } else {
-      this.setState({
-        breeds: []
-      });
-    }
+
+  componentWillUnmount() {
+    this.unregisterAuthObserver();
   }
+
   render() {
-    return (
-      <div>
-        <header>
-          <Link to="/">Adopt Me!</Link>
-          <Link to="/search-params">
-            <span aria-label="search" role="img">
-              🔍
-            </span>
-          </Link>
-        </header>
-        <Provider value={this.state}>
-          <Router>
-            <Results path="/" />
-            <Details path="/details/:id" />
-            <SearchParams path="/search-params" />
-          </Router>
-        </Provider>
-      </div>
-    );
+    const { isLoggedIn } = this.state;
+
+    if (!isLoggedIn) {
+      return <Login />;
+    } else {
+      return (
+        <Wrapper>
+          <Header>
+            <Title>Library test app for Expedition project</Title>
+            <Greeting>
+              Welcome {firebase.auth().currentUser.displayName}! You are now logged-in!
+            </Greeting>
+            <BasicButton onClick={() => firebase.auth().signOut()}>Logout</BasicButton>
+          </Header>
+            <AddingBook />
+        </Wrapper>
+      );
+    }
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
