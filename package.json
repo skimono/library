@@ -17,6 +17,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-firebaseui": "^3.1.2",
+    "react-pubsub": "^0.5.0",
     "styled-components": "^4.1.1"
   },
   "devDependencies": {
@@ -31,6 +32,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "lsbridge": "^0.2.0",
     "parcel-bundler": "^1.10.3",
     "prettier": "^1.15.2"
   }

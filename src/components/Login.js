@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
-import { Wrapper, Header, Title, Greeting} from '../styles.js';
+import { Wrapper, Header, Title, Greeting, LoginButtonBox} from '../styles.js';
+import OAuth from './OAuth';
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -28,6 +29,9 @@ class Login extends Component {
                 firebaseAuth={firebase.auth()}
               />
             }
+            <LoginButtonBox>
+              <OAuth name="GitHub"/>
+            </LoginButtonBox>
           </Header>
       </Wrapper>
     );

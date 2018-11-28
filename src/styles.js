@@ -49,7 +49,23 @@ export const BasicInput = styled.input`
   padding: 0.25rem 1rem;
   margin: 0 1rem;
   margin-bottom: 0.3rem;
-  background: #777;
+  background: #AAA;
   color: white;
   border: 2px solid;
+`;
+
+export const GithubLogin = styled.a`
+  background-color: #666;
+  font-family: "Roboto", Segoe UI;
+  font-size: 14px;
+  border: 1px solid #666;
+  border-radius: 3px;
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+`;
+
+export const LoginButtonBox = styled.div`
+  margin: 1.4em;
+  cursor: pointer;
 `;
