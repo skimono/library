@@ -160,9 +160,9 @@ class AddBook extends Component {
         });
 
         let author = this.state.author
-        var flag = null
-        this.state.authors.map(function (e) {
-            if (e.name == author) {
+        var flag = null                                     // eslint-disable-next-line
+        this.state.authors.map(function (e) {               // eslint-disable-next-line
+            if (e.name == author) {                         
                 flag = e.id
                 console.log('author id from flag', flag)
             }
