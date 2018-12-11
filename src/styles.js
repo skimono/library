@@ -49,7 +49,7 @@ export const BasicInput = styled.input`
   padding: 0.25rem 1rem;
   margin: 0 1rem;
   margin-bottom: 0.3rem;
-  background: #777;
+  background: #AAA;
   color: white;
   border: 2px solid;
 `;
