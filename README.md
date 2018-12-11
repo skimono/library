@@ -30,6 +30,6 @@ npm install
 ### Uruchamianie
 
 ```
-npm run dev
+npm start
 ```
 
