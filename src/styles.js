@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import GitHubLogin from 'react-github-login';
+
 
 export const Wrapper = styled.div`
   text-align: center;
@@ -52,4 +54,15 @@ export const BasicInput = styled.input`
   background: #AAA;
   color: white;
   border: 2px solid;
+`;
+
+export const GitHubLoginStyled = styled(GitHubLogin)`
+  background-color: #666;
+  font-family: "Roboto", Segoe UI;
+  font-size: 14px;
+  border: 1px solid #666;
+  border-radius: 3px;
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
