@@ -5,8 +5,21 @@ import { Wrapper, Header, Title, Greeting} from '../styles.js';
 import GitHubLogin from 'react-github-login';
 
 
-const onSuccess = response => console.log(response);
-const onFailure = response => console.error(response);
+const onSuccess = response => {    
+  const settings = { timestampsInSnapshots: true };
+  firebase.firestore().settings(settings);
+  var db = firebase.firestore()
+  var code = response.code;
+  console.log(code);
+  db.collection('Users').doc(code).onSnapshot(
+    querySnapshot => {
+      const currentUser = [];
+      querySnapshot.forEach(doc => currentUser.push({ name: doc.name }));
+      this.setState({ currentUser });
+    }
+  )
+};
+const onFailure = response => console.error("Error: ", response);
 const uiConfig = {
   signInFlow: 'popup',
   signInOptions: [
@@ -20,6 +33,11 @@ const uiConfig = {
 };
 
 class Login extends Component {
+  state = {
+    currentUser: []
+  };
+
+
   render() {
     return (
       <Wrapper>
