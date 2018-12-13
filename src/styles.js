@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import GitHubLogin from 'react-github-login';
 
-
 export const Wrapper = styled.div`
   text-align: center;
 `;
@@ -41,6 +40,17 @@ export const BasicButton = styled.button`
   margin: 0 1rem;
   background: transparent;
   color: white
+  border: 2px solid;
+`;
+
+export const LogoutButton = styled.button`
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 0;
+  padding: 0.25rem 1rem;
+  margin: 0 1rem;
+  background: transparent;
+  color: red
   border: 2px solid;
 `;
 
