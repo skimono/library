@@ -40,9 +40,6 @@ class App extends Component {
       return (
         <Wrapper>
           <Login />
-          <SubHeader>
-            <Weather />
-          </SubHeader>
         </Wrapper>
       );
     } else {
@@ -63,9 +60,8 @@ class App extends Component {
             <SubHeader>
             <Router>
             <Weather path="/weather" />
-            <AddingBook path="/" />
-            {/*<Favourites path="/favs" />*/}
             </Router>
+            <AddingBook/>
             </SubHeader>
           </Wrapper>
         </React.Fragment>

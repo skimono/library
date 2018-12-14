@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import Listing from './Listing';
+import Favourites from './ListingFavs';
 import { FormErrors } from './FormErrors';
-import { BasicButton, BasicInput, SubHeader, Body } from '../styles.js';
+import { BasicButton, BasicInput, SubHeader } from '../styles.js';
+import { Router } from "@reach/router";
 
 
 class AddBook extends Component {
@@ -313,9 +315,10 @@ class AddBook extends Component {
                     <br />
                     <br />
                 </SubHeader>
-                <Body>
-                    <Listing books={this.state.books} />
-                </Body>
+                <Router>
+                    <Listing path="/" books={this.state.books} />
+                    <Favourites path="/favs" books={this.state.books}/>
+                </Router>
             </React.Fragment>
         );
     }
