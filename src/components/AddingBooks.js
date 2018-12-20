@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import Listing from './Listing';
+import Favourites from './ListingFavs';
 import { FormErrors } from './FormErrors';
-import { BasicButton, BasicInput, SubHeader, Body } from '../styles.js';
+import { BasicButton, BasicInput, SubHeader } from '../styles.js';
+import { Router } from "@reach/router";
 
 
 class AddBook extends Component {
@@ -116,7 +118,7 @@ class AddBook extends Component {
             coverUrl: url,
             favedBy: []
         }).then(docRef => console.log('Book added', docRef.id)).then(() => {
-            window.location.reload();
+            // window.location.reload();
         });
     }
 
@@ -160,15 +162,16 @@ class AddBook extends Component {
         });
 
         let author = this.state.author
-        var flag = null
-        this.state.authors.map(function (e) {
-            if (e.name == author) {
+        var flag = null                                     // eslint-disable-next-line
+        this.state.authors.map(function (e) {               // eslint-disable-next-line
+            if (e.name == author) {                         
                 flag = e.id
                 console.log('author id from flag', flag)
             }
         })
 
         setTimeout(() => {
+            console.log(flag)
             var db = firebase.firestore().collection('Authors')
             if (flag == null) {
                 db.add({
@@ -313,9 +316,10 @@ class AddBook extends Component {
                     <br />
                     <br />
                 </SubHeader>
-                <Body>
-                    <Listing books={this.state.books} />
-                </Body>
+                <Router>
+                    <Listing path="/" books={this.state.books} />
+                    <Favourites path="/favs" books={this.state.books}/>
+                </Router>
             </React.Fragment>
         );
     }

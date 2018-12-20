@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Login from './components/Login';
 import AddingBook from './components/AddingBooks';
+import Weather from './components/OpenWeatherMapApi';
 import firebase from 'firebase';
-import { Wrapper, Header, Title, Greeting, BasicButton } from './styles.js';
+import { Wrapper, Header, SubHeader, Title, Greeting, BasicButton, LogoutButton } from './styles.js';
+import {Router, Link} from "@reach/router";
+import "./style.css";
 
 var config = {
   //firebase setup
@@ -34,19 +37,34 @@ class App extends Component {
     const { isLoggedIn } = this.state;
 
     if (!isLoggedIn) {
-      return <Login />;
-    } else {
       return (
         <Wrapper>
-          <Header>
-            <Title>Library test app for Expedition project</Title>
-            <Greeting>
-              Welcome {firebase.auth().currentUser.displayName}! You are now logged-in!
-            </Greeting>
-            <BasicButton onClick={() => firebase.auth().signOut()}>Logout</BasicButton>
-          </Header>
-            <AddingBook />
+          <Login />
         </Wrapper>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <Wrapper>
+            <Header>
+              <Title>Library test app for Expedition project</Title>
+              <Greeting>
+                Welcome {firebase.auth().currentUser.displayName}! You are now logged-in!
+              </Greeting>
+              <LogoutButton onClick={() => firebase.auth().signOut()}>Logout</LogoutButton>
+              <Link to="/weather"><BasicButton>Weather API</BasicButton></Link>
+              <Link to="/"><BasicButton>Library</BasicButton></Link>
+              <Link to="/favs"><BasicButton>Favourites</BasicButton></Link>
+
+            </Header>
+            <SubHeader>
+            <Router>
+            <Weather path="/weather" />
+            </Router>
+            <AddingBook/>
+            </SubHeader>
+          </Wrapper>
+        </React.Fragment>
       );
     }
   }
