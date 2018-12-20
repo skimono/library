@@ -43,7 +43,7 @@ npm run dev
 6. Zdefiniować atrybuty dla autorów i książek i wpisać do formularzy
 7. Dodać warstwę walidacyjną dla danych przesyłanych z zewnątrz.
 8. ~~Skonfigurować TaskQue~~
-9. Dodać jeden TaskWyzwalany tylko przez administratora, który po 10 sekundach się zakończy i wyśle powiadomienie mailowe
+9. ~~Dodać jeden TaskWyzwalany tylko przez administratora, który po 10 sekundach się zakończy i wyśle powiadomienie mailowe~~
 10. Skonfigurować i oprzeć warstwę frontend o wybrany framework jsowy (Vue / Angular itp)
 11. ~~dodać wyszukiwanie książek w searchu~~
 12. ~~dodać notyfikacje pub/sub przy wrzucaniu okładek, zapisać finalnie dane do Datastore~~
